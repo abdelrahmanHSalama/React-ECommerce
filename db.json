@@ -1,0 +1,34 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Samsung Galaxy A05s",
+            "price": 5349,
+            "image": "images/A05s.png"
+        },
+        {
+            "id": 2,
+            "title": "Samsung Galaxy A15",
+            "price": 7299,
+            "image": "images/A15.png"
+        },
+        {
+            "id": 3,
+            "title": "Samsung Galaxy A25",
+            "price": 10990,
+            "image": "images/A25.png"
+        },
+        {
+            "id": 4,
+            "title": "Samsung Galaxy A35",
+            "price": 15500,
+            "image": "images/A35.png"
+        },
+        {
+            "id": 5,
+            "title": "Samsung Galaxy A55",
+            "price": 19999,
+            "image": "images/A55.png"
+        }
+    ]
+}
