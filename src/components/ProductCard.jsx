@@ -1,7 +1,8 @@
+import CartButton from "./CartButton";
+import FavouritesButton from "./FavouritesButton";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-    console.log(product);
     return (
         <div
             key={product.id}
@@ -23,9 +24,10 @@ const ProductCard = ({ product }) => {
                 <span className="text-gray-700 font-medium">
                     {product.price} EGP
                 </span>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    Add to Cart
-                </button>
+                <div className="flex space-x-2">
+                    <FavouritesButton product={product} />
+                    <CartButton product={product} />
+                </div>
             </div>
         </div>
     );

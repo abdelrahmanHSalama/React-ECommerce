@@ -1,17 +1,16 @@
-import { useContext } from "react";
-import { ProductsContext } from "../context/ProductsContext";
+import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import productBanner from "../assets/productBanner.png";
 
 const Home = () => {
-    const { products, isLoading, error } = useContext(ProductsContext);
+    const { products, status, error } = useSelector((state) => state.products);
 
-    if (isLoading) {
-        return <div>Loading...</div>; // Show a loading message
+    if (status === "loading") {
+        return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>Error fetching products: {error.message}</div>; // Show an error message
+    if (status === "failed") {
+        return <div>Error: {error}</div>;
     }
 
     return (

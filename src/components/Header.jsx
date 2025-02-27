@@ -1,17 +1,22 @@
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { LangContext } from "../context/LangContext";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme, toggleLang } from "../slices/uiSlice";
 
 const Header = function () {
-    const { theme, toggleTheme } = useContext(ThemeContext);
-    const { lang, toggleLang } = useContext(LangContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch();
+    const cartCount = useSelector((state) => state.cart.cartItems.length);
+    const favouritesCount = useSelector(
+        (state) => state.favourites.favouriteItems.length
+    );
+    const { theme, lang } = useSelector((state) => state.ui);
 
     return (
         <header className="flex items-center bg-gray-200 px-5 py-4 relative">
-            <img src="Nile.png" className="w-24" alt="Logo" />
+            <Link to="/">
+                <img src="/Nile.png" className="w-24" alt="Logo" />
+            </Link>
 
             <nav className="hidden sm:flex ml-4 gap-2">
                 <NavLink
@@ -62,6 +67,32 @@ const Header = function () {
                 >
                     Account
                 </NavLink>
+                <NavLink
+                    to="/cart"
+                    className={({ isActive }) =>
+                        `px-4 py-2 rounded-md font-medium transition block ${
+                            isActive
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300 text-gray-800 hover:bg-gray-400 dark:bg-gray-700 dark:text-white"
+                        }`
+                    }
+                >
+                    {cartCount === 0 ? "Cart" : `Cart (${cartCount})`}
+                </NavLink>
+                <NavLink
+                    to="/favourites"
+                    className={({ isActive }) =>
+                        `px-4 py-2 rounded-md font-medium transition block ${
+                            isActive
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300 text-gray-800 hover:bg-gray-400 dark:bg-gray-700 dark:text-white"
+                        }`
+                    }
+                >
+                    {favouritesCount === 0
+                        ? "Favourites"
+                        : `Favourites (${favouritesCount})`}
+                </NavLink>
             </nav>
 
             <button
@@ -107,13 +138,13 @@ const Header = function () {
             <div className="ml-auto sm:flex gap-2 hidden">
                 <button
                     className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
-                    onClick={toggleTheme}
+                    onClick={() => dispatch(toggleTheme())}
                 >
                     {theme === "light" ? "🌑 Dark Mode" : "☀️ Light Mode"}
                 </button>
                 <button
                     className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
-                    onClick={toggleLang}
+                    onClick={() => dispatch(toggleLang())}
                 >
                     {lang === "en" ? "العربية" : "English"}
                 </button>
@@ -123,13 +154,13 @@ const Header = function () {
                 <div className="absolute bottom-[-90px] left-0 w-full bg-white shadow-md p-4 flex flex-col gap-2 sm:hidden">
                     <button
                         className="w-full px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
-                        onClick={toggleTheme}
+                        onClick={() => dispatch(toggleTheme())}
                     >
                         {theme === "light" ? "🌑 Dark Mode" : "☀️ Light Mode"}
                     </button>
                     <button
                         className="w-full px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
-                        onClick={toggleLang}
+                        onClick={() => dispatch(toggleLang())}
                     >
                         {lang === "en" ? "العربية" : "English"}
                     </button>

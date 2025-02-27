@@ -1,9 +1,16 @@
-import { useContext } from "react";
-import { ProductsContext } from "../context/ProductsContext";
+import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 
 const Products = () => {
-    const { products, isLoading, error } = useContext(ProductsContext);
+    const { products, status, error } = useSelector((state) => state.products);
+
+    if (status === "loading") {
+        return <div>Loading...</div>;
+    }
+
+    if (status === "failed") {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <main className="p-2 mt-5 flex flex-wrap justify-between gap-y-2">
