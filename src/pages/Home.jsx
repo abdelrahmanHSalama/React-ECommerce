@@ -21,7 +21,7 @@ const Home = () => {
                 alt="Product Banner"
             />
 
-            <div className="mt-5 flex flex-wrap justify-between">
+            <div className="mt-5 flex flex-wrap justify-between gap-y-2">
                 {products.slice(0, 5).map((product) => (
                     <ProductCard product={product} key={product.id} />
                 ))}

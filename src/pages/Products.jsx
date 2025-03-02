@@ -13,7 +13,7 @@ const Products = () => {
     }
 
     return (
-        <main className="p-2 mt-5 flex flex-wrap justify-between">
+        <main className="p-2 mt-5 flex flex-wrap justify-between gap-y-2">
             {products.map((product) => (
                 <ProductCard product={product} key={product.id} />
             ))}
