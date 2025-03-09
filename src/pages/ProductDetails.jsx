@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import NotFound from "./NotFound";
 import CartButton from "../components/CartButton";
 import FavouritesButton from "../components/FavouritesButton";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -16,7 +17,7 @@ const ProductDetails = () => {
     const error = useSelector((state) => state.products.error);
 
     if (status === "loading") {
-        return <div className="text-center">Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     if (status === "failed") {
@@ -40,8 +41,8 @@ const ProductDetails = () => {
                 <p className="text-lg mb-1">{product.description}</p>
                 <h3 className="text-lg mb-1">{product.price} EGP</h3>
                 <div className="flex space-x-2 justify-center lg:justify-start">
-                    {user && <FavouritesButton product={product} />}
-                    {user && <CartButton product={product} />}
+                    <CartButton product={product} />
+                    <FavouritesButton product={product} />
                 </div>
             </div>
         </div>

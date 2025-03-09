@@ -25,8 +25,8 @@ const ProductCard = ({ product }) => {
                     {product.price} EGP
                 </span>
                 <div className="flex items-center space-x-2">
-                    {user && <FavouritesButton product={product} />}
-                    {user && <CartButton product={product} />}
+                    <FavouritesButton product={product} />
+                    <CartButton product={product} />
                 </div>
             </div>
         </div>

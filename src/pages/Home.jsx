@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import productBanner from "../assets/productBanner.png";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Home = () => {
     const { products, status, error } = useSelector((state) => state.products);
 
     if (status === "loading") {
-        return <div className="text-center">Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     if (status === "failed") {

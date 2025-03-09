@@ -9,6 +9,8 @@ import {
     getIdToken,
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { clearCart } from "./cartSlice";
+import { clearFavourites } from "./favouritesSlice";
 
 const initialState = {
     user: null,
@@ -91,9 +93,14 @@ export const loginUser = createAsyncThunk(
 );
 
 // 🔹 Logout User
-export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-    await signOut(auth);
-});
+export const logoutUser = createAsyncThunk(
+    "auth/logoutUser",
+    async (_, { dispatch }) => {
+        await signOut(auth);
+        dispatch(clearCart()); // Clears cart in cartSlice
+        dispatch(clearFavourites()); // Clears favourites in favouritesSlice
+    }
+);
 // 🔹 Listen for Auth Changes
 export const listenForAuthChanges = createAsyncThunk(
     "auth/listenForAuthChanges",
@@ -184,17 +191,6 @@ const authSlice = createSlice({
             });
     },
 });
-extraReducers: (builder) => {
-    builder
-        .addCase(listenForAuthChanges.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(listenForAuthChanges.fulfilled, (state) => {
-            state.loading = false;
-        })
-        .addCase(listenForAuthChanges.rejected, (state) => {
-            state.loading = false;
-        });
-};
+
 export const { setUser } = authSlice.actions;
 export default authSlice.reducer;

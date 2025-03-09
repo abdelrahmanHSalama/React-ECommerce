@@ -89,7 +89,7 @@ const Header = () => {
                                     className="flex items-center gap-1"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                    <span>❤️</span>
+                                    <span>⭐</span>
                                     <span
                                         className={`hover:underline ${isActive(
                                             "/favourites"

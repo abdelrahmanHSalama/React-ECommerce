@@ -31,9 +31,15 @@ const favouritesSlice = createSlice({
             );
             saveFavouritesToStorage(state);
         },
+
+        clearFavourites: (state) => {
+            state.favouriteItems = [];
+
+            saveFavouritesToStorage(state);
+        },
     },
 });
 
-export const { addToFavourites, removeFromFavourites } =
+export const { addToFavourites, removeFromFavourites, clearFavourites } =
     favouritesSlice.actions;
 export default favouritesSlice.reducer;

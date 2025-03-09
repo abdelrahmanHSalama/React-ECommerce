@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Products = () => {
     const { products, status, error } = useSelector((state) => state.products);
 
     if (status === "loading") {
-        return <div className="text-center">Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     if (status === "failed") {
@@ -20,4 +21,5 @@ const Products = () => {
         </main>
     );
 };
+
 export default Products;
