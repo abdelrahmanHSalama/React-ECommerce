@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -46,7 +47,7 @@ const Register = () => {
         const result = await dispatch(registerUser({ name, email, password }));
 
         if (result.meta.requestStatus === "fulfilled") {
-            navigate("/login");
+            navigate("/");
         } else {
             switch (result.payload) {
                 case "Firebase: Error (auth/email-already-in-use).":
@@ -151,6 +152,14 @@ const Register = () => {
                     >
                         Register
                     </button>
+
+                    <div className="text-center text-gray-500 flex justify-center mt-1">
+                        <p>Already Have an Account?&nbsp;</p>
+                        <Link to="/login" className="text-blue-500 underline">
+                            Login
+                        </Link>
+                        <p>.</p>
+                    </div>
                 </form>
             </div>
         </main>

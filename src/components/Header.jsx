@@ -30,7 +30,7 @@ const Header = () => {
             </button>
 
             <nav
-                className={`absolute md:static top-16 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:flex md:items-center p-4 md:p-0 transition-all ${
+                className={`absolute md:static top-24 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:flex md:items-center p-4 md:p-0 transition-all ${
                     menuOpen ? "block" : "hidden"
                 }`}
             >
