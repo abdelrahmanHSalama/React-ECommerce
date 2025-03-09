@@ -20,7 +20,7 @@ const Home = () => {
             <picture>
                 <source
                     srcSet={productBannerMobile}
-                    media="(max-width: 768px)"
+                    media="(max-width: 640px)"
                 />
                 <img
                     className="w-full object-cover"
