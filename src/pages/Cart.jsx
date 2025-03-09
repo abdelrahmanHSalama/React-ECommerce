@@ -1,10 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-    increaseQuantity,
-    decreaseQuantity,
-    removeFromCart,
-    clearCart,
-} from "../slices/cartSlice";
+import { removeFromCart, clearCart } from "../slices/cartSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -42,23 +37,6 @@ const Cart = () => {
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <button
-                                    onClick={() =>
-                                        dispatch(decreaseQuantity(item.id))
-                                    }
-                                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 transition"
-                                >
-                                    –
-                                </button>
-                                <span>{item.quantity}</span>
-                                <button
-                                    onClick={() =>
-                                        dispatch(increaseQuantity(item.id))
-                                    }
-                                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 transition"
-                                >
-                                    +
-                                </button>
                                 <button
                                     onClick={() =>
                                         dispatch(removeFromCart(item.id))

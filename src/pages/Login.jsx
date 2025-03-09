@@ -6,17 +6,43 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const handleErrors = () => {
+        const errorsObj = {};
+
+        if (!email.trim()) {
+            errorsObj.email = "Please enter your email!";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errorsObj.email = "Please enter a valid email!";
+        }
+
+        if (!password.trim()) {
+            errorsObj.password = "Please enter your password!";
+        }
+
+        setErrors(errorsObj);
+        return Object.keys(errorsObj).length;
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        if (handleErrors()) {
+            return;
+        }
+
         const result = await dispatch(loginUser({ email, password }));
 
         if (result.meta.requestStatus === "fulfilled") {
             navigate("/");
         } else {
-            alert("Login failed. Please check your credentials.");
+            setErrors((prev) => ({
+                ...prev,
+                general: result.payload || "Login failed. Please try again.",
+            }));
         }
     };
 
@@ -28,6 +54,7 @@ const Login = () => {
                 </h1>
 
                 <form onSubmit={handleLogin}>
+                    {/* Email Field */}
                     <div className="mb-4">
                         <label className="block font-medium">Email</label>
                         <input
@@ -36,8 +63,14 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full border p-2 rounded"
                         />
+                        {errors.email && (
+                            <p className="text-red-500 text-sm">
+                                {errors.email}
+                            </p>
+                        )}
                     </div>
 
+                    {/* Password Field */}
                     <div className="mb-4">
                         <label className="block font-medium">Password</label>
                         <input
@@ -46,8 +79,21 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full border p-2 rounded"
                         />
+                        {errors.password && (
+                            <p className="text-red-500 text-sm">
+                                {errors.password}
+                            </p>
+                        )}
                     </div>
 
+                    {/* General Error Message */}
+                    {errors.general && (
+                        <p className="text-red-500 text-sm text-center mb-4">
+                            {errors.general}
+                        </p>
+                    )}
+
+                    {/* Submit Button */}
                     <button
                         type="submit"
                         className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
