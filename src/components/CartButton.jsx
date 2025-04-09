@@ -14,7 +14,7 @@ const CartButton = ({ product }) => {
         if (!user) {
             navigate("/login");
         } else {
-            dispatch(addToCart(product));
+            dispatch(addToCart({ ...product, quantity: 1 }));
         }
     };
 

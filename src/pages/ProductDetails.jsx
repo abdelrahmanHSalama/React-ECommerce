@@ -31,7 +31,7 @@ const ProductDetails = () => {
     return (
         <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center lg:items-start gap-6">
             <img
-                src={product.image}
+                src={product.thumbnail}
                 alt={product.title}
                 className="w-full sm:w-80 md:w-96 lg:w-1/3 object-cover rounded-lg"
             />

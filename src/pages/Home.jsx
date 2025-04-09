@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import productBanner from "../assets/productBanner.png";
-import productBannerMobile from "../assets/productBanner-mobile.png";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const Home = () => {
@@ -17,17 +16,11 @@ const Home = () => {
 
     return (
         <main className="p-2">
-            <picture>
-                <source
-                    srcSet={productBannerMobile}
-                    media="(max-width: 640px)"
-                />
-                <img
-                    className="w-full object-cover"
-                    src={productBanner}
-                    alt="Product Banner"
-                />
-            </picture>
+            <img
+                className="w-full object-cover"
+                src={productBanner}
+                alt="Product Banner"
+            />
 
             <div className="mt-5 flex flex-wrap justify-around gap-y-2">
                 {products.slice(0, 5).map((product) => (

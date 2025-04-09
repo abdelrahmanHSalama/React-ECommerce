@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -101,16 +100,6 @@ const Login = () => {
                     >
                         Login
                     </button>
-                    <div className="text-center text-gray-500 flex justify-center mt-1">
-                        <p>Don't Have an Account?&nbsp;</p>
-                        <Link
-                            to="/register"
-                            className="text-blue-500 underline"
-                        >
-                            Register
-                        </Link>
-                        <p>.</p>
-                    </div>
                 </form>
             </div>
         </main>

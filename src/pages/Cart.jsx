@@ -18,11 +18,11 @@ const Cart = () => {
                     {cartItems.map((item) => (
                         <div
                             key={item.id}
-                            className="flex justify-between items-center border-b py-3"
+                            className="flex justify-between items-center py-3"
                         >
                             <div className="flex items-center gap-4">
                                 <img
-                                    src={item.image}
+                                    src={item.thumbnail}
                                     alt={item.title}
                                     className="w-16 h-16 object-cover rounded"
                                 />

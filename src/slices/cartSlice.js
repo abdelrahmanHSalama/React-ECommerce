@@ -16,16 +16,44 @@ const cartSlice = createSlice({
     initialState: loadCartFromStorage(),
     reducers: {
         addToCart: (state, action) => {
+            console.log("🛒 addToCart called with:", action.payload);
+
             const itemAlreadyInCart = state.cartItems.find(
                 (item) => item.id === action.payload.id
             );
 
+            console.log("🔍 Item already in cart:", itemAlreadyInCart);
+
             if (!itemAlreadyInCart) {
-                state.cartItems.push({ ...action.payload });
-                state.totalQuantity++;
-                state.totalPrice += action.payload.price;
+                // Make sure quantity is set (default to 1 if not provided)
+                const itemToAdd = {
+                    ...action.payload,
+                    quantity: action.payload.quantity || 1,
+                };
+                console.log("📦 Adding new item:", itemToAdd);
+
+                state.cartItems.push(itemToAdd);
+                state.totalQuantity += itemToAdd.quantity;
+                state.totalPrice += itemToAdd.price * itemToAdd.quantity;
+
+                console.log("🧮 New totalQuantity:", state.totalQuantity);
+                console.log("💰 New totalPrice:", state.totalPrice);
+            } else {
+                // Update existing item quantity
+                itemAlreadyInCart.quantity += action.payload.quantity || 1;
+                state.totalQuantity += action.payload.quantity || 1;
+                state.totalPrice +=
+                    itemAlreadyInCart.price * (action.payload.quantity || 1);
+
+                console.log(
+                    "🔄 Updated item quantity:",
+                    itemAlreadyInCart.quantity
+                );
+                console.log("🧮 New totalQuantity:", state.totalQuantity);
+                console.log("💰 New totalPrice:", state.totalPrice);
             }
 
+            console.log("🗂️ Saving cart to localStorage:", state);
             saveCartToStorage(state);
         },
 
@@ -36,9 +64,9 @@ const cartSlice = createSlice({
 
             if (itemIndex !== -1) {
                 const item = state.cartItems[itemIndex];
-                state.cartItems.splice(itemIndex, 1);
                 state.totalQuantity -= item.quantity;
-                state.totalPrice -= item.quantity * item.price;
+                state.totalPrice -= item.price * item.quantity;
+                state.cartItems.splice(itemIndex, 1);
             }
 
             saveCartToStorage(state);

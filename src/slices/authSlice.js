@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth, db } from "../firebase";
+
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -8,7 +9,7 @@ import {
     onAuthStateChanged,
     getIdToken,
 } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, Timestamp } from "firebase/firestore";
 import { clearCart } from "./cartSlice";
 import { clearFavourites } from "./favouritesSlice";
 
@@ -39,7 +40,7 @@ export const registerUser = createAsyncThunk(
                 uid: user.uid,
                 email: user.email,
                 name: name,
-                createdAt: new Date(),
+                createdAt: Timestamp.fromDate(new Date()),
             });
 
             return { email: user.email, name };

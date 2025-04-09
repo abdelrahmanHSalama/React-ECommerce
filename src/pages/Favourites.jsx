@@ -11,39 +11,42 @@ const Favourites = () => {
             <h2 className="text-2xl font-semibold mb-4">⭐ Favourites</h2>
 
             {favouriteItems.length === 0 ? (
-                <div className="text-center text-gray-500">
-                    <p>You haven't added any products to Favourites yet!</p>
-                    <Link to="/products" className="text-blue-500 underline">
-                        Browse Products
-                    </Link>
-                </div>
+                <p className="text-gray-500">
+                    You haven't added any products to Favourites yet!
+                </p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div>
                     {favouriteItems.map((item) => (
                         <div
                             key={item.id}
-                            className="border rounded-lg p-4 shadow-sm flex flex-col items-center"
+                            className="flex justify-between items-center py-3"
                         >
-                            <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-24 h-24 object-cover rounded"
-                            />
-                            <div className="text-center mt-2">
-                                <h3 className="font-medium">{item.title}</h3>
-                                <p className="text-gray-600">
-                                    {item.price} EGP
-                                </p>
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={item.thumbnail}
+                                    alt={item.title}
+                                    className="w-16 h-16 object-cover rounded"
+                                />
+                                <div>
+                                    <h3 className="font-medium">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        {item.price} EGP
+                                    </p>
+                                </div>
                             </div>
 
-                            <button
-                                onClick={() =>
-                                    dispatch(removeFromFavourites(item.id))
-                                }
-                                className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
-                            >
-                                Remove
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() =>
+                                        dispatch(removeFromFavourites(item.id))
+                                    }
+                                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                                >
+                                    Remove
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
     "products/fetchProducts",
     async () => {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        console.log(querySnapshot);
-        return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const { data } = await axios.get("https://dummyjson.com/products");
+        console.log(data.products);
+        return data.products;
     }
 );
 
